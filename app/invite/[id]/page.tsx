@@ -58,7 +58,7 @@ export default function InvitePage() {
               Get the app to accept this household invitation and start managing your family's tasks and documents.
             </p>
             <a
-              href="https://testflight.apple.com/join/YOUR_TESTFLIGHT_CODE"
+              href="https://testflight.apple.com/join/xqzKqq9F"
               className="inline-block w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg mb-3 transition"
             >
               Download from TestFlight
@@ -79,7 +79,7 @@ export default function InvitePage() {
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Invalid Invite Link</h1>
             <p className="text-gray-600 mb-6">This invitation link is invalid or has expired.</p>
             <a
-              href="https://testflight.apple.com/join/YOUR_TESTFLIGHT_CODE"
+              href="https://testflight.apple.com/join/xqzKqq9F"
               className="inline-block w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition"
             >
               Download Duemora
