@@ -14,8 +14,8 @@ export default function InvitePage() {
       return
     }
 
-    // Try to open the deep link
-    const deepLinkUrl = `duemora://invite/${inviteId}`
+    // Try to open the deep link with the invite ID as a query parameter
+    const deepLinkUrl = `duemora://(tabs)/profile/household?inviteId=${inviteId}`
 
     // Create a hidden iframe to trigger the deep link
     const iframe = document.createElement('iframe')
