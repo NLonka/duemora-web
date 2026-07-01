@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "T8QL2B6N7Y.com.duemora.app",
+        "paths": [
+          "/invite/*",
+          "/household/accept/*"
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["T8QL2B6N7Y.com.duemora.app"]
+  }
+}
