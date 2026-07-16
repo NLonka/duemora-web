@@ -3,6 +3,9 @@
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 
+// Disable static prerendering since this page reads URL search params
+export const dynamic = 'force-dynamic'
+
 export default function OAuthRedirectPage() {
   const searchParams = useSearchParams()
   const accessToken = searchParams.get('access_token')
