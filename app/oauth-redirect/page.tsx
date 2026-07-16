@@ -2,11 +2,9 @@
 
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
-// Disable static prerendering since this page reads URL search params
-export const dynamic = 'force-dynamic'
-
-export default function OAuthRedirectPage() {
+function OAuthRedirectContent() {
   const searchParams = useSearchParams()
   const accessToken = searchParams.get('access_token')
   const refreshToken = searchParams.get('refresh_token')
@@ -32,5 +30,13 @@ export default function OAuthRedirectPage() {
       <p>If the app doesn't open automatically, please install Duemora from the App Store.</p>
       {(!accessToken || !refreshToken) && <p style={{ color: '#ff6b6b', marginTop: '1rem' }}>Error: Missing OAuth tokens</p>}
     </div>
+  )
+}
+
+export default function OAuthRedirectPage() {
+  return (
+    <Suspense fallback={<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>Loading...</div>}>
+      <OAuthRedirectContent />
+    </Suspense>
   )
 }
