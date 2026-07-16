@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 // Email verification page - processes magic links from Supabase
+// Disable static rendering since this is dynamic based on URL params
+export const dynamic = 'force-dynamic'
+
 export default function VerifyEmailPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
