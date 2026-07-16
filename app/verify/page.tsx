@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
+// Email verification page - processes magic links from Supabase
 export default function VerifyEmailPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
