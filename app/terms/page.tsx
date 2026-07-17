@@ -123,8 +123,8 @@ export default function TermsOfService() {
               Duemora sends email reminders (typically at 9 AM AEST) and push notifications for upcoming items and reminders. You can:
             </p>
             <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>Disable email notifications in Settings > Notifications</li>
-              <li>Disable push notifications in Settings > Notifications</li>
+              <li>Disable email notifications in Settings &gt; Notifications</li>
+              <li>Disable push notifications in Settings &gt; Notifications</li>
               <li>Customize quiet hours to mute notifications during specific times</li>
               <li>Manage notification preferences per notification type</li>
             </ul>
