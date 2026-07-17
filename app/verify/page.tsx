@@ -15,37 +15,40 @@ function VerifyEmailContent() {
   useEffect(() => {
     const verifyEmail = async () => {
       try {
-        // Get the token from URL params
-        const token = searchParams.get('token')
-        const type = searchParams.get('type') || 'signup'
-        const redirectTo = searchParams.get('redirect_to') || 'duemora://home'
+        // Get email from URL params
+        const email = searchParams.get('email')
 
-        console.log('📧 Email verification:', { token, type, redirectTo })
+        console.log('📧 Email verification:', { email })
 
-        if (!token) {
+        if (!email) {
           setStatus('error')
-          setMessage('No verification token found. Invalid link.')
+          setMessage('No email found. Invalid link.')
           return
         }
 
-        // The Supabase verification link already verifies the email
-        // by the time the user clicks it. The URL pattern is:
-        // https://jewtafjrsqgzrvvqwvxr.supabase.co/auth/v1/verify?token=...&type=signup
-        //
-        // We just need to redirect to the app and let it check the status
+        // Call backend to verify email by email address
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://duemora-production.up.railway.app'
+        const verifyRes = await fetch(`${apiBaseUrl}/auth/verify-email`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        })
 
+        if (!verifyRes.ok) {
+          const error = await verifyRes.json()
+          console.error('❌ Verification failed:', error)
+          setStatus('error')
+          setMessage(error.details || 'Email verification failed. Please try again.')
+          return
+        }
+
+        console.log('✅ Email verified successfully')
         setStatus('success')
         setMessage('Email verified! Redirecting to app...')
 
         // Redirect to app after 2 seconds
         setTimeout(() => {
-          // If redirect_to is a deep link (duemora://), use it
-          if (redirectTo && redirectTo.startsWith('duemora://')) {
-            window.location.href = redirectTo
-          } else {
-            // Otherwise go to home
-            window.location.href = 'duemora://home'
-          }
+          window.location.href = 'duemora://home'
         }, 2000)
       } catch (err) {
         console.error('❌ Verification failed:', err)
