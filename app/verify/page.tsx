@@ -18,7 +18,7 @@ function VerifyEmailContent() {
         // Get email from URL params
         const email = searchParams.get('email')
 
-        console.log('📧 Email verification:', { email })
+        console.log('📧 Email verification started:', { email })
 
         if (!email) {
           setStatus('error')
@@ -28,17 +28,24 @@ function VerifyEmailContent() {
 
         // Call backend to verify email by email address
         const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://duemora-production.up.railway.app'
+        console.log('🔗 Calling backend:', `${apiBaseUrl}/auth/verify-email`)
+
         const verifyRes = await fetch(`${apiBaseUrl}/auth/verify-email`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({ email }),
         })
 
+        console.log('📡 Backend response status:', verifyRes.status)
+        const responseData = await verifyRes.json()
+        console.log('📡 Backend response:', responseData)
+
         if (!verifyRes.ok) {
-          const error = await verifyRes.json()
-          console.error('❌ Verification failed:', error)
+          console.error('❌ Verification failed:', responseData)
           setStatus('error')
-          setMessage(error.details || 'Email verification failed. Please try again.')
+          setMessage(responseData?.details || responseData?.error || 'Email verification failed. Please try again.')
           return
         }
 
@@ -48,12 +55,13 @@ function VerifyEmailContent() {
 
         // Redirect to app after 2 seconds
         setTimeout(() => {
-          window.location.href = 'duemora://home'
+          console.log('🔄 Redirecting to app via deep link: duemora://verify-email-success')
+          window.location.href = 'duemora://verify-email-success'
         }, 2000)
       } catch (err) {
-        console.error('❌ Verification failed:', err)
+        console.error('❌ Verification error:', err)
         setStatus('error')
-        setMessage('Email verification failed. Please try again.')
+        setMessage(err instanceof Error ? err.message : 'Email verification failed. Please try again.')
       }
     }
 
